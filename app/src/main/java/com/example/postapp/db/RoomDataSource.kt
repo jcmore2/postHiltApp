@@ -5,9 +5,11 @@ import com.example.postapp.model.*
 import com.example.postapp.model.canon.Comment
 import com.example.postapp.model.canon.Post
 import com.example.postapp.model.canon.User
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class RoomDataSource @Inject constructor(context: Context): LocalDataSource {
+class RoomDataSource @Inject constructor(@ApplicationContext context: Context): LocalDataSource {
+
     private val db = PostDataBase.getInstance(context)
 
     override suspend fun getAllPosts(): List<Post> {

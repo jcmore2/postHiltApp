@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.postapp.model.canon.PostDetail
 import com.example.postapp.usecase.GetPostDetailsUseCase
 import com.example.postapp.utils.ViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailViewModel
     @Inject constructor(private val getPostDetailsUseCase: GetPostDetailsUseCase) : ViewModel() {
 

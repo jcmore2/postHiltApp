@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.postapp.PostApp
 import com.example.postapp.databinding.FragmentDetailBinding
 import com.example.postapp.model.canon.PostDetail
 import com.example.postapp.utils.ViewState
 import com.example.postapp.utils.gone
 import com.example.postapp.utils.visible
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
-    @Inject
-    lateinit var detailViewModel: DetailViewModel
+    private val detailViewModel: DetailViewModel by viewModels()
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +30,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         val bundle = arguments
         postId = bundle?.getInt("postId")
@@ -46,10 +47,6 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    init {
-        PostApp.daggerAppComponent().inject(this)
     }
 
     private fun setupReloadButton() {

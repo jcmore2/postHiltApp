@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.postapp.model.canon.Post
 import com.example.postapp.usecase.GetAllPostsUseCase
 import com.example.postapp.utils.ViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel
 @Inject constructor(private val getAllPostsUseCase: GetAllPostsUseCase) : ViewModel() {
 

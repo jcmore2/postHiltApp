@@ -1,21 +1,24 @@
 package com.example.postapp.injection
 
-import com.example.postapp.repository.RepositoryImpl
+import com.example.postapp.repository.Repository
 import com.example.postapp.usecase.GetAllPostsUseCase
 import com.example.postapp.usecase.GetPostDetailsUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(SingletonComponent::class)
 @Module
 class UseCaseModule {
 
     @Provides
-    fun getAllPostsUseCase(repositoryImpl: RepositoryImpl): GetAllPostsUseCase =
-        GetAllPostsUseCase(repositoryImpl)
+    fun getAllPostsUseCase(repository: Repository): GetAllPostsUseCase =
+        GetAllPostsUseCase(repository)
 
     @Provides
-    fun getPostDetailsUseCase(repositoryImpl: RepositoryImpl): GetPostDetailsUseCase =
-        GetPostDetailsUseCase(repositoryImpl)
+    fun getPostDetailsUseCase(repository: Repository): GetPostDetailsUseCase =
+        GetPostDetailsUseCase(repository)
 
 
 }

@@ -1,6 +1,6 @@
 package com.example.postapp
 
-import com.example.postapp.client.RetrofitDataSource
+import com.example.postapp.client.RemoteDataSource
 import com.example.postapp.db.RoomDataSource
 import com.example.postapp.repository.RepositoryImpl
 import com.nhaarman.mockitokotlin2.times
@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations
 
 class RepositoryImplTest {
 
-    private lateinit var retrofitDataSource: RetrofitDataSource
+    private lateinit var remoteDataSource: RemoteDataSource
     private lateinit var roomDataSource: RoomDataSource
     private lateinit var repositoryImpl: RepositoryImpl
 
@@ -27,17 +27,17 @@ class RepositoryImplTest {
     @Before
     fun setup() = runBlockingTest {
         MockitoAnnotations.initMocks(this)
-        retrofitDataSource = Mockito.mock(RetrofitDataSource::class.java)
+        remoteDataSource = Mockito.mock(RemoteDataSource::class.java)
         roomDataSource = Mockito.mock(RoomDataSource::class.java)
         whenever(roomDataSource.getAllPosts()).thenReturn(this@RepositoryImplTest.postListResult)
         whenever(roomDataSource.getCommentsFromPost(1)).thenReturn(this@RepositoryImplTest.commentListResult)
         whenever(roomDataSource.getPostById(1)).thenReturn(this@RepositoryImplTest.postResult)
         whenever(roomDataSource.getUserById(1)).thenReturn(this@RepositoryImplTest.userResult)
-        whenever(retrofitDataSource.getAllPosts()).thenReturn(this@RepositoryImplTest.postListResult)
-        whenever(retrofitDataSource.getCommentsByPostId(1)).thenReturn(this@RepositoryImplTest.commentListResult)
-        whenever(retrofitDataSource.getPostById(1)).thenReturn(this@RepositoryImplTest.postResult)
-        whenever(retrofitDataSource.getUserById(1)).thenReturn(this@RepositoryImplTest.userResult)
-        repositoryImpl = RepositoryImpl(retrofitDataSource, roomDataSource)
+        whenever(remoteDataSource.getAllPosts()).thenReturn(this@RepositoryImplTest.postListResult)
+        whenever(remoteDataSource.getCommentsByPostId(1)).thenReturn(this@RepositoryImplTest.commentListResult)
+        whenever(remoteDataSource.getPostById(1)).thenReturn(this@RepositoryImplTest.postResult)
+        whenever(remoteDataSource.getUserById(1)).thenReturn(this@RepositoryImplTest.userResult)
+        repositoryImpl = RepositoryImpl(remoteDataSource, roomDataSource)
     }
 
 
@@ -46,7 +46,7 @@ class RepositoryImplTest {
         whenever(roomDataSource.getAllPosts()).thenReturn(null)
         repositoryImpl.getAllPosts()
         verify(roomDataSource, times(1)).getAllPosts()
-        verify(retrofitDataSource, times(1)).getAllPosts()
+        verify(remoteDataSource, times(1)).getAllPosts()
     }
 
     @Test
@@ -75,7 +75,7 @@ class RepositoryImplTest {
         whenever(roomDataSource.getCommentsFromPost(1)).thenReturn(null)
         repositoryImpl.getCommentsFromPostId(1)
         verify(roomDataSource, times(1)).getCommentsFromPost(1)
-        verify(retrofitDataSource, times(1)).getCommentsByPostId(1)
+        verify(remoteDataSource, times(1)).getCommentsByPostId(1)
     }
 
     @Test
@@ -106,7 +106,7 @@ class RepositoryImplTest {
         whenever(roomDataSource.getPostById(1)).thenReturn(null)
         repositoryImpl.getPostById(1)
         verify(roomDataSource, times(1)).getPostById(1)
-        verify(retrofitDataSource, times(1)).getPostById(1)
+        verify(remoteDataSource, times(1)).getPostById(1)
     }
 
     @Test
@@ -135,7 +135,7 @@ class RepositoryImplTest {
         whenever(roomDataSource.getUserById(1)).thenReturn(null)
         repositoryImpl.getUserById(1)
         verify(roomDataSource, times(1)).getUserById(1)
-        verify(retrofitDataSource, times(1)).getUserById(1)
+        verify(remoteDataSource, times(1)).getUserById(1)
     }
 
     @Test

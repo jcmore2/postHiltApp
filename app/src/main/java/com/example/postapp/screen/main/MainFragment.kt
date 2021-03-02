@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,14 +17,15 @@ import com.example.postapp.model.canon.Post
 import com.example.postapp.utils.ViewState
 import com.example.postapp.utils.gone
 import com.example.postapp.utils.visible
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Qualifier
 
 
+@AndroidEntryPoint
 class MainFragment : Fragment(), MainAdapter.OnItemClicked{
 
-    @Inject
-    lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -36,8 +38,6 @@ class MainFragment : Fragment(), MainAdapter.OnItemClicked{
         setupObservers()
         return binding.root
     }
-
-    init { PostApp.daggerAppComponent().inject(this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

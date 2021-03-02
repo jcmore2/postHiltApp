@@ -8,7 +8,7 @@ import com.example.postapp.model.toPost
 import com.example.postapp.model.toUser
 import javax.inject.Inject
 
-class RetrofitDataSource @Inject constructor(private val retrofitApiClient: RetrofitApiClientImpl): ApiDataSource {
+class RemoteDataSource @Inject constructor(private val retrofitApiClient: RetrofitApiClientImpl): ApiDataSource {
 
     override suspend fun getAllPosts(): List<Post>? {
         return retrofitApiClient.getAllPosts()?.map { postApiDTO -> postApiDTO.toPost() }

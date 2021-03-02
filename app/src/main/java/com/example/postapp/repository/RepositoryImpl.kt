@@ -1,6 +1,6 @@
 package com.example.postapp.repository
 
-import com.example.postapp.client.RetrofitDataSource
+import com.example.postapp.client.RemoteDataSource
 import com.example.postapp.db.RoomDataSource
 import com.example.postapp.model.canon.Comment
 import com.example.postapp.model.canon.Post
@@ -8,7 +8,7 @@ import com.example.postapp.model.canon.User
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val retrofitDataSource: RetrofitDataSource,
+    private val remoteDataSource: RemoteDataSource,
     private val roomDataSource: RoomDataSource
 ) : Repository {
 
@@ -17,7 +17,7 @@ class RepositoryImpl @Inject constructor(
         return if (!postsFromDataBase.isNullOrEmpty()) {
             postsFromDataBase
         } else {
-            val posts = retrofitDataSource.getAllPosts()
+            val posts = remoteDataSource.getAllPosts()
             saveAllPosts(posts)
             posts
         }
@@ -36,7 +36,7 @@ class RepositoryImpl @Inject constructor(
         return if (postFromDataBase != null) {
             postFromDataBase
         } else {
-            val post = retrofitDataSource.getPostById(id)
+            val post = remoteDataSource.getPostById(id)
             savePost(post)
             post
         }
@@ -52,7 +52,7 @@ class RepositoryImpl @Inject constructor(
         return if (!commentListFromDB.isNullOrEmpty()) {
             commentListFromDB
         } else {
-            val comments = retrofitDataSource.getCommentsByPostId(id)
+            val comments = remoteDataSource.getCommentsByPostId(id)
             saveAllComments(comments)
             comments
         }
@@ -72,7 +72,7 @@ class RepositoryImpl @Inject constructor(
             return if (userFromDB != null) {
                 userFromDB
             } else {
-                val user = retrofitDataSource.getUserById(id)
+                val user = remoteDataSource.getUserById(id)
                 saveUser(user)
                 user
             }
