@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PostApp</string>
+    <string name="error_string">Sorry, there is an error getting data</string>
+    <string name="error_database">Sorry, we couldn´t find the data</string>
+    <string name="reload">Reload</string>
+    <string name="comments">Comments</string>
+</resources>
