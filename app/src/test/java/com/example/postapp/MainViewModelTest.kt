@@ -48,7 +48,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `checks viewState is error when request is null`() = runBlocking {
+    fun `checks viewState is error when request is null`() = runBlockingTest {
         whenever(getAllPostsUseCase.request()).thenReturn(null)
         mainViewModel = MainViewModel(getAllPostsUseCase)
         Truth.assertThat(mainViewModel.viewState.value).isEqualTo(ViewState.Error)
